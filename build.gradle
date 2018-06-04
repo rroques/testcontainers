@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: "io.spring.dependency-management"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.apache.logging.log4j:log4j-bom:2.11.0'
+    }
+}
+
+dependencies {
+    compile 'com.google.guava:guava:25.1-jre'
+
+    compile 'org.apache.logging.log4j:log4j-api'
+    compile 'org.apache.logging.log4j:log4j-core'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+
+    testCompile 'org.assertj:assertj-core:3.10.0'
+
+    testCompile 'org.flywaydb:flyway-core:5.1.1'
+
+    testCompile "org.testcontainers:mssqlserver:1.7.3"
+    testCompile "org.testcontainers:mysql:1.7.3"
+
+    testCompile "mysql:mysql-connector-java:8.0.11"
+    testCompile "com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre8"
+}
+
+test {
+    useJUnitPlatform()
+}
